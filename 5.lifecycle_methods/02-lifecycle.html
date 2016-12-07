@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue lifecycle</title>
+</head>
+<body>
+<div class="app">
+    <h1>{{ title }}</h1>
+    <button @click="title += 'A'">Add A</button>
+    <button @click="title = 'Changed'">Become Changed</button>
+    <button @click="destroyInstance">Destory</button>
+</div>
+</body>
+<script src="../vue.js"></script>
+<script>
+var vm1 = new Vue({
+    el: ".app",
+    data: {
+        title: 'The Vue Instance'
+    },
+    methods: {
+        destroyInstance: function(){
+            this.$destroy();
+        }
+    },
+    beforeCreate: function(){
+        console.log('before create...')
+    },
+    created: function(){
+        console.log('created...')
+    },
+    beforeMount: function(){
+        console.log('before beforeMount...')
+    },
+    mounted: function(){
+        console.log('mounted...')
+    },
+    beforeUpdate: function(){
+        console.log('before update...')
+    },
+    updated: function(){
+        console.log('updated...')
+    },
+    beforeDestroy: function(){
+        console.log('before destroy...')
+    },
+    destroyed: function(){
+        console.log('destroyed...')
+    }
+})
+</script>
+</html>

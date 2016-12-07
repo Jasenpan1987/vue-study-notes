@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>exercise3</title>
+</head>
+<body>
+    <div class="exercise">
+        <div>
+            <p>Current Value: {{ value }}</p>
+            <button @click="value++">Add 1</button>
+            <button @click="value--">Reduce 1</button>
+            <p>result: {{ result }}</p>
+        </div>
+        <hr>
+        <div>
+            <input type="text" v-model="input">
+            <p>{{ input }}</p>
+        </div>
+    </div>
+</body>
+<script src="vue.js"></script>
+<script>
+new Vue({
+    el: ".exercise",
+    data: {
+        value: 0,
+        input: ''
+    },
+    computed: {
+        result: function(){
+            return this.value>5 ? 'Greater than 5' : 'Less than 5';
+        }
+    },
+    watch: {
+        input: function(value){
+            console.log(value);
+            var vm = this;
+            setTimeout(function(){
+                vm.input = '';
+            }, 5000)
+        }
+    }
+})
+</script>
+</html>

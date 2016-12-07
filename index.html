@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>permutations and avgs</title>
+</head>
+<body>
+
+<h2 class="text-center">Get Permutations and avgs</h2>
+<div class="container">
+    <h3 class="text-center">type your numbers here, separated by comma (,)</h3>
+    <div class="row">
+        <div class="col-md-3">
+            <label for="mynumbers">Type your number combinations here</label>
+            <input type="text" id="mynumbers">
+            <button class="btn btn-default" id="submit">Submit</button>
+        </div>
+        <div class="col-md-3">
+            <label for="filternumber">Type your filter number here</label>
+            <input type="text" id="filternumber">
+            <button class="btn btn-primary" id="filter">Filter</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3>All possible combinations</h3>
+            <ul id="result"></ul>
+        </div>
+
+        <div class="col-md-6">
+            <h3>Filtered Combinations</h3>
+            <ul id="filtered"></ul>
+        </div>
+    </div>
+
+</div>
+
+</body>
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+<script>
+    function getAvg(arr){
+        var total = arr.reduce(function(total, num) {
+            return total + num;
+        }, 0);
+        return total/arr.length;
+    }
+
+    function getCombinationAndAvg(arr) {
+        var i, j;
+        var result = [];
+        var arrLen = arr.length;
+        var power = Math.pow;
+        var permutations = power(2, arrLen);
+
+        for (i = 0; i < permutations ; i++) {
+            var tempArr = [];
+
+            for (j = 0; j < arrLen; j++) {
+                if ((i & power(2, j))) {
+                    tempArr.push(arr[j]-0);
+
+                }
+            }
+            if (tempArr !== []) {
+                result.push({
+                    arr: tempArr,
+                    avg: getAvg(tempArr)
+                });
+
+            }
+        }
+        return result.slice(1);
+    }
+
+
+    function renderToUl(div, data){
+        $(div+' li').remove();
+        data.forEach(function(resObj){
+            $(div).append('<li>The Combination is: ' +resObj.arr.join(', ')+'<br>The average is: '+
+                    resObj.avg.toFixed(4)+'</li>')
+        })
+    }
+
+    $(document).ready(function(){
+        var resObjs;
+        $("#submit").on('click', function(){
+            var numbers = $("#mynumbers").val();
+            var numberArr = numbers.replace(/ /g,'').split(',');
+            resObjs = getCombinationAndAvg(numberArr);
+            renderToUl('#result', resObjs);
+        });
+
+        $("#filter").on('click', function(){
+            var filterNumber = parseFloat($("#filternumber").val()).toFixed(4);
+            if(filterNumber.isNaN){
+                alert('Filter number is not valid')
+            }else{
+                var filteredResObjs = resObjs.filter(function(resObj){
+                    return resObj.avg.toFixed(4) == filterNumber;
+                });
+                renderToUl('#filtered', filteredResObjs);
+            }
+        })
+    })
+</script>
+</html>

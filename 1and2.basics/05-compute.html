@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>compute</title>
+</head>
+<body>
+<div class="app">
+    <button v-on:click="counter++">Add 1</button>
+    <button v-on:click="counter--">Reduce 1</button>
+    <button v-on:click="secondCounter++">Click Me</button>
+    <p>Counter: {{ counter }} | {{secondCounter}}</p>
+    <p>Result: {{ getResult() }} | {{ output }}</p>
+</div>
+</body>
+<script src="vue.js"></script>
+<script>
+new Vue({
+    el: ".app",
+    data: {
+        counter: 0,
+        secondCounter: 0
+    },
+    computed: {
+        output: function(){
+            console.log('output in computed is running');
+            return this.counter>5 ? 'Yes, >5' : 'No, <5';
+        }
+    },
+    watch: {
+        counter: function(value){
+            //handle async events
+            console.log("value: "+value);
+            var vm = this;
+
+            setTimeout(function(){
+                vm.counter = 0;
+            }, 3000)
+        }
+    },
+    methods: {
+        getResult: function(){
+            console.log('get result is running')
+            return this.counter>5 ? 'Greater than 5' : 'Less or equal than 5';
+        },
+        increaseCounter: function(){
+            this.counter ++;
+        }
+    }
+})
+</script>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="app">
+    <server-status></server-status>
+    <server-status></server-status>
+</div>
+
+</body>
+<script src="../vue.js"></script>
+<script>
+
+    Vue.component('server-status', {
+        data: function(){
+            return {
+                status: 'Bad'
+            }
+        },
+        template: '<h3>Server in the component is {{ status }}</h3>'
+    });
+
+    new Vue({
+        el: '.app',
+    });
+
+
+</script>
+</html>

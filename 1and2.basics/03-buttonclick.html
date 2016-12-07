@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>button click</title>
+</head>
+<body>
+<div class="app">
+    <p>{{ counter }}</p>
+    <button v-on:click="addOne">Add One</button>
+    <button v-on:click="addMultiple(2)">Add One</button>
+    <button v-on:click="addMultipleAndKeepEvent(3, $event)">Add One</button>
+</div>
+
+
+</body>
+<script src="vue.js"></script>
+<script>
+new Vue({
+    el: ".app",
+    data: {
+        counter: 0
+    },
+    methods: {
+        addOne: function(e){
+            this.counter++;
+        },
+        addMultiple: function(step){
+            //If we add a argument, it will overwrite the default event argument
+            //if we want to keep both, we should add the $event argument at the end of the argument list
+            this.counter+=step;
+        },
+        addMultipleAndKeepEvent: function(step, e){
+            console.log(e);
+            this.counter+=step
+        }
+    }
+})
+</script>
+</html>

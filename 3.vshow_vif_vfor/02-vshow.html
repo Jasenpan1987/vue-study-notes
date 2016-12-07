@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vshow</title>
+</head>
+<body>
+<div class="app">
+    <h3 v-show="show">show text 1</h3>
+    <h3 v-hide="show">show text 2</h3>
+    <template v-show="!show">
+        <h2>Hello World</h2>
+        <p>says from vue</p>
+    </template>
+</div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    new Vue({
+        el: ".app",
+        data: {
+            show: false
+        }
+    })
+</script>
+</html>

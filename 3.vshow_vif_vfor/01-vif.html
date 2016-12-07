@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vif</title>
+</head>
+<body>
+<div class="app">
+    <p v-if="show">Text in v-if, <span>Span inside</span></p>
+    <h2 v-else>Text in v-else</h2>
+    <button @click="show = !show">Toggle</button>
+    <!-- new feature from vue 2.1+ -->
+    <div v-if="type === 'a'">A</div>
+    <div v-else-if="type === 'b'">B</div>
+    <div v-else>C</div>
+    <button @click="changeType">ChangeType</button>
+</div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    new Vue({
+        el: ".app",
+        data: {
+            show: true,
+            type: 'a'
+        },
+        methods: {
+            changeType: function(){
+                if(this.type=='a'){
+                    this.type = 'b';
+                }else if(this.type=='b'){
+                    this.type = 'c';
+                }else{
+                    this.type = 'a';
+                }
+            }
+        }
+    })
+</script>
+</html>

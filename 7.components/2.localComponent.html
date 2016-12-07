@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Local Component</title>
+</head>
+<body>
+<div id="app1">
+    <my-comp></my-comp>
+</div>
+<div id="app2">
+    <my-comp></my-comp>
+</div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    var comp1 = {
+        data: function(){
+            return {
+                name: 'Local Component 1'
+            }
+        },
+        template: '<h2>Hello {{ name }}</h2>'
+    }
+
+    var comp2 = {
+        data: function(){
+            return {
+                name: 'Local Component 2'
+            }
+        },
+        template: '<h2>Hello {{ name }}</h2>'
+    }
+
+    new Vue({
+        el: "#app1",
+        components: {
+            'my-comp': comp1
+        }
+    })
+
+    new Vue({
+        el: "#app2",
+        components: {
+            'my-comp': comp2
+        }
+    })
+</script>
+</html>

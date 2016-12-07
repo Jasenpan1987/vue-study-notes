@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>exercise2</title>
+</head>
+<body>
+<div class="app">
+    <div>
+        <button v-on:click="showAlert">Show Alert</button>
+    </div>
+    <div>
+        <input type="text" v-on:keypress="handlechange1">
+        <p>{{ value }}</p>
+    </div>
+    <div>
+        <input type="text" v-on:keypress.enter="handlechange2">
+        <!--only update value when user press enter -->
+        <p>{{ value }}</p>
+    </div>
+</div>
+</body>
+<script src="vue.js"></script>
+<script>
+    new Vue({
+        el: ".app",
+        data: {
+            value: ''
+        },
+        methods: {
+            showAlert: function(){
+                alert('hello world')
+            },
+            handlechange1: function(e){
+                this.value = e.target.value;
+            },
+            handlechange2: function(e){
+                this.value = e.target.value;
+            }
+        }
+    })
+</script>
+</html>

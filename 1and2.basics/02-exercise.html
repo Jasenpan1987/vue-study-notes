@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue exercise</title>
+</head>
+<body>
+
+<div id="exercise">
+    <p>Vue is cool - {{ name }} ({{ age }})</p>
+    <p>{{age*3}}</p>
+    <p>Random number between 0 to 3: {{getRandomNumber()}}</p>
+    <div>
+        <img v-bind:src="img.url" v-bind:alt="img.alt">
+    </div>
+    <div>
+        <input type="text" v-bind:value="name">
+    </div>
+</div>
+
+<script src="vue.js"></script>
+<script>
+new Vue({
+    el: "#exercise",
+    data: {
+        name: "Jasen",
+        age: 29,
+        img: {
+            url: "https://vuefe.cn/images/logo.png",
+            alt: "vue logo"
+        }
+    },
+    methods: {
+        getRandomNumber: function(){
+            return Math.random()
+        }
+    }
+
+})
+</script>
+</body>
+</html>

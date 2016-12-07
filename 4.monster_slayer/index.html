@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monster Slayer</title>
+    <script src="../vue.js"></script>
+    <link rel="stylesheet" href="foundation.min.css">
+    <link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div id="app">
+    <section class="row">
+        <div class="small-6 columns">
+            <h1 class="text-center">YOU</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center"
+                     style="background-color: green; margin: 0; color: white;" :style="{width: playerLifeBar}">
+                    {{ player.health }}
+                </div>
+            </div>
+        </div>
+        <div class="small-6 columns">
+            <h1 class="text-center">MONSTER</h1>
+            <div class="healthbar">
+                <div class="healthbar text-center"
+                     style="background-color: green; margin: 0; color: white;" :style="{width: monsterLifeBar}">
+                    {{ monster.health }}
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="row controls" v-show="!isStarted">
+        <div class="small-12 columns">
+            <button id="start-game" @click="startGame">START NEW GAME</button>
+        </div>
+    </section>
+    <section class="row controls" v-show="isStarted">
+        <div class="small-12 columns">
+            <button id="attack" @click="normalAttack">ATTACK</button>
+            <button id="special-attack" @click="specialAttack">SPECIAL ATTACK</button>
+            <button id="heal" @click="gainLife">HEAL</button>
+            <button id="give-up">GIVE UP</button>
+        </div>
+    </section>
+    <section class="row log">
+        <div class="small-12 columns">
+            <ul>
+                <li v-for="m in message">
+                    {{ m }}
+                </li>
+            </ul>
+        </div>
+    </section>
+</div>
+</body>
+<script>
+new Vue({
+    el: "#app",
+    data: {
+        isStarted: false,
+        message: [],
+        player: {
+            health: 100,
+            takeDamage: function(){
+                this.health -= (Math.floor(Math.random() * 15) + 1);
+            },
+            heal: function(){
+                this.health += (Math.floor(Math.random() * 18) + 1);
+            }
+        },
+        monster: {
+            health: 100,
+            takeDamage: function(){
+                this.health -= (Math.floor(Math.random() * 15) + 1);
+            },
+            takeSpecial: function(){
+                this.health -= (Math.floor(Math.random() * 20) + 1);
+            }
+        }
+    },
+    computed: {
+        playerLifeBar: function(){
+            return this.player.health + '%';
+        },
+        monsterLifeBar: function(){
+            return this.monster.health + '%';
+        }
+    },
+    watch: {
+        'player.health': function(){
+            if(this.player.health<=0){
+                alert('Game Over, player lose!');
+                this.message.push("Game Over, player lose!");
+                this.stopGame();
+            }
+        },
+        'monster.health': function(){
+            if(this.monster.health<=0){
+                this.message.push("Monster killed, player won!!!");
+                alert('Monster killed, player won!!!');
+                this.stopGame();
+            }
+        }
+    },
+    methods: {
+        startGame: function(){
+            this.isStarted = true;
+            this.message.push("A new Game started!");
+        },
+        normalAttack: function(){
+            this.player.takeDamage();
+            this.monster.takeDamage();
+            this.message.push("Player use normal attack, and monster attack back!");
+        },
+        specialAttack: function(){
+            this.player.takeDamage();
+            this.monster.takeSpecial();
+            this.message.push("Player use special attack, and monster attack back!");
+        },
+        gainLife: function(){
+            this.player.takeDamage();
+            this.player.heal();
+            this.message.push("Player use heal, and monster attacks!");
+        },
+        stopGame: function(){
+            this.isStarted = false;
+            this.player.health = 100;
+            this.monster.health = 100;
+            this.message = [];
+        }
+    }
+})
+</script>
+</html>

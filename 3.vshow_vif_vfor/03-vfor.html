@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vfor</title>
+</head>
+<body>
+<div class="app">
+    <ul>
+        <li v-for="(fruit, idx) in fruits"> {{ fruit }} - {{idx}} </li>
+    </ul>
+
+    <ul>
+        <li v-for="person in people">
+            <span v-for="(value, key, idx) in person">{{key}}:{{value}} - {{idx}}</span>
+        </li>
+    </ul>
+</div>
+</body>
+<script src="../vue.js"></script>
+<script>
+    new Vue({
+        el: ".app",
+        data: {
+            fruits: ['app', 'banana', 'peach'],
+            people: [
+                {name: 'AAA', age: 11, color: 'red'},
+                {name: 'BBB', age: 21, color: 'black'},
+                {name: 'CCC', age: 77, color: 'grey'},
+                {name: 'DDD', age: 110, color: 'yellow'}
+            ]
+        }
+    })
+</script>
+</html>
